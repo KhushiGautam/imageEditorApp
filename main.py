@@ -16,6 +16,7 @@ class Main(tk.Tk):
         self.is_draw_state = False
         self.is_crop_state = False
         self.is_mirror_state = False
+        self.is_rotate_state = False
         self.filter_frame = None
         self.adjust_frame = None
 

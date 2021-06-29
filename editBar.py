@@ -15,19 +15,23 @@ class EditBar(Frame):
         self.save_as_button = Button(self, text="Save As")
         self.draw_button = Button(self, text="Draw")
         self.crop_button = Button(self, text="Crop")
+        self.mirror_button = Button(self, text="Mirror")
+        self.rotate_button = Button(self, text="Rotate")
         self.filter_button = Button(self, text="Filter")
         self.adjust_button = Button(self, text="Adjust")
         self.clear_button = Button(self, text="Clear")
-        self.mirror_button = Button(self, text="Mirror")
+
         self.new_button.bind("<ButtonRelease>", self.new_button_released)
         self.save_button.bind("<ButtonRelease>", self.save_button_released)
         self.save_as_button.bind("<ButtonRelease>", self.save_as_button_released)
         self.draw_button.bind("<ButtonRelease>", self.draw_button_released)
         self.crop_button.bind("<ButtonRelease>", self.crop_button_released)
+        self.mirror_button.bind("<ButtonRelease>", self.mirror_button_released)
+        self.rotate_button.bind("<ButtonRelease>", self.rotate_button_released)
         self.filter_button.bind("<ButtonRelease>", self.filter_button_released)
         self.adjust_button.bind("<ButtonRelease>", self.adjust_button_released)
         self.clear_button.bind("<ButtonRelease>", self.clear_button_released)
-        self.mirror_button.bind("<ButtonRelease>", self.mirror_button_released)
+
 
         self.new_button.pack(side=LEFT)
         self.save_button.pack(side=LEFT)
@@ -37,7 +41,20 @@ class EditBar(Frame):
         self.filter_button.pack(side=LEFT)
         self.adjust_button.pack(side=LEFT)
         self.mirror_button.pack(side=LEFT)
+        self.rotate_button.pack(side=LEFT)
         self.clear_button.pack()
+
+    def rotate_button_released(self, event):
+        if self.winfo_containing(event.x_root, event.y_root) == self.rotate_button:
+            if self.master.is_image_selected:
+                if self.master.is_draw_state:
+                    self.master.image_viewer.deactivate_draw()
+                if self.master.is_crop_state:
+                    self.master.image_viewer.deactivate_crop()
+
+                self.master.processed_image = cv2.rotate(self.master.original_image, cv2.ROTATE_90_CLOCKWISE)
+                self.master.image_viewer.show_image()
+                self.master.original_image = self.master.processed_image
 
     def mirror_button_released(self, event):
         if self.winfo_containing(event.x_root, event.y_root) == self.mirror_button:
@@ -47,7 +64,7 @@ class EditBar(Frame):
                 if self.master.is_crop_state:
                     self.master.image_viewer.deactivate_crop()
 
-                self.master.processed_image = cv2.flip(self.master.original_image,1)
+                self.master.processed_image = cv2.flip(self.master.original_image, 1)
                 self.master.image_viewer.show_image()
 
     def new_button_released(self, event):

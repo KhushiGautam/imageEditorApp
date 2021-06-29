@@ -98,15 +98,15 @@ class ImageViewer(Frame):
         self.x = event.x
         self.y = event.y
 
+    def start_rotate(self, event):
+        self.x = event.x
+        self.y = event.y
+
+
     def start_mirror(self, event):
         self.x = event.x
         self.y = event.y
 
-    def mirror(self, event):
-        print('Hello7')
-        cv2.flip(self.master.processed_image,1)
-        self.x = event.x
-        self.y = event.y
 
     def start_crop(self, event):
         self.crop_start_x = event.x
