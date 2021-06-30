@@ -64,8 +64,9 @@ class EditBar(Frame):
                 if self.master.is_crop_state:
                     self.master.image_viewer.deactivate_crop()
 
-                self.master.processed_image = cv2.flip(self.master.original_image, 1)
+                self.master.processed_image = cv2.flip(self.master.processed_image, 1)
                 self.master.image_viewer.show_image()
+                self.master.original_image = self.master.processed_image
 
     def new_button_released(self, event):
         if self.winfo_containing(event.x_root, event.y_root) == self.new_button:
@@ -145,6 +146,8 @@ class EditBar(Frame):
                 self.master.filter_frame.grab_set()
 
     def adjust_button_released(self, event):
+        self.master.processed_image = self.master.original_image.copy()
+        self.master.image_viewer.show_image()
         if self.winfo_containing(event.x_root, event.y_root) == self.adjust_button:
             if self.master.is_image_selected:
                 if self.master.is_draw_state:

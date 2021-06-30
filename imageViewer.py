@@ -68,6 +68,13 @@ class ImageViewer(Frame):
 
         self.master.is_crop_state = True
 
+    def activate_mirror(self):
+        self.canvas.bind("<ButtonPress>", self.start_mirror())
+        self.canvas.bind("<B1-Motion>", self.mirror)
+        self.canvas.bind("<ButtonRelease>", self.end_mirror)
+
+        self.master.is_crop_state = True
+
     def deactivate_draw(self):
         self.canvas.unbind("<ButtonPress>")
         self.canvas.unbind("<B1-Motion>")
