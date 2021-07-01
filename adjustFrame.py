@@ -190,7 +190,7 @@ class AdjustFrame(Toplevel):
         # self.processing_image=cv2.addWeighted(self.processing_image,0.3,self.rgb,0.7,0.0)
         # self.processing_image = cv2.addWeighted(self.processing_image, 0.3, img, 0.7, 0.0)
         self.show_image(self.processing_image)
-        self.destroy()
+        # self.destroy()
 
     def cancel_button_released(self, event):
         self.close()
